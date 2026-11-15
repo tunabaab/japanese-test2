@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>일본어 복습 퀴즈 · 1단 동사 과거형</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f2ea; --card:#fffdf9; --ink:#2a2620; --sub:#7a7166; --line:#e6ded0;
+    --accent:#c2412d; --accent-soft:#f7e4df; --ok:#2f7d4f; --ok-soft:#e2f1e7; --no:#b3261e; --no-soft:#fbe5e3;
+    --a:#3d6fa8; --b:#a0602a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Noto Sans JP",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:680px;margin:0 auto;padding:24px 16px 64px}
+  .jp{font-family:"Noto Sans JP","Noto Sans KR",sans-serif}
+  ruby rt{font-size:.55em;color:var(--sub);font-weight:400}
+  header.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .brand{font-weight:700;font-size:15px;letter-spacing:.02em}
+  .brand span{color:var(--accent)}
+  .toggle{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sub);cursor:pointer;user-select:none}
+  .toggle input{accent-color:var(--accent)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  h1{font-size:26px;margin:0 0 6px;line-height:1.35}
+  .lead{color:var(--sub);margin:0 0 20px;font-size:15px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 20px}
+  .chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}
+  .chip b{font-family:"Noto Sans JP",sans-serif;font-weight:500}
+  table.pat{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 4px}
+  table.pat th,table.pat td{border-bottom:1px solid var(--line);padding:9px 6px;text-align:left;vertical-align:top}
+  table.pat th{color:var(--sub);font-weight:500;font-size:12px}
+  table.pat td.jp{font-size:16px}
+  .muted{color:var(--sub);font-size:13px}
+  .sec-title{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.04em;margin:22px 0 4px}
+  button{font:inherit;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:14px 22px;font-weight:700;font-size:16px;background:var(--accent);color:#fff;transition:transform .05s,opacity .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.full{width:100%}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  /* progress */
+  .prog{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:13px;color:var(--sub)}
+  .bar{flex:1;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+  .qno{font-weight:700;color:var(--accent);font-size:13px;letter-spacing:.05em}
+  .ask{font-size:17px;font-weight:700;margin:6px 0 16px}
+  /* dialogue */
+  .dlg{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+  .ln{display:flex;gap:10px;align-items:flex-start}
+  .av{flex:0 0 32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#fff;margin-top:4px}
+  .av.A{background:var(--a)} .av.B{background:var(--b)} .av.Q{background:var(--sub)}
+  .bub{background:var(--bg);border-radius:4px 14px 14px 14px;padding:10px 14px;max-width:100%}
+  .bub .j{font-size:19px;line-height:2.05}
+  .bub .p{font-size:13px;color:var(--a);margin-top:2px}
+  .ln.B .bub .p{color:var(--b)}
+  .bub .t{font-size:13px;color:var(--sub);margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);display:none}
+  .show-tr .bub .t{display:block}
+  .blank{display:inline-block;min-width:3.2em;border-bottom:2px solid var(--accent);text-align:center;color:var(--accent);font-weight:700;margin:0 2px;line-height:1.3}
+  .no-pron .p, .no-pron .op-p{display:none}
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;gap:12px;align-items:center;text-align:left;width:100%;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);transition:border-color .15s,background .15s}
+  .opt:hover:not(:disabled){border-color:var(--accent)}
+  .opt .n{flex:0 0 26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--sub)}
+  .opt .op-j{font-size:18px;display:block}
+  .opt .op-k{font-size:16px;display:block}
+  .opt .op-p{font-size:12.5px;color:var(--sub);display:block}
+  .opt.ok{border-color:var(--ok);background:var(--ok-soft)} .opt.ok .n{background:var(--ok);border-color:var(--ok);color:#fff}
+  .opt.no{border-color:var(--no);background:var(--no-soft)} .opt.no .n{background:var(--no);border-color:var(--no);color:#fff}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:14.5px;display:none}
+  .fb.ok{display:block;background:var(--ok-soft);color:#1d4f32}
+  .fb.no{display:block;background:var(--no-soft);color:#7a1a14}
+  .fb b{display:block;margin-bottom:4px;font-size:15px}
+  .fb .jp{font-weight:500}
+  .next{margin-top:16px}
+  .keys{margin-top:14px;text-align:center;font-size:12px;color:var(--sub)}
+  /* result */
+  .score{font-size:56px;font-weight:700;line-height:1;margin:8px 0;color:var(--accent)}
+  .score small{font-size:22px;color:var(--sub);font-weight:500}
+  .grade{font-size:16px;font-weight:700;margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:14px 0 20px}
+  .grid div{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:700}
+  .grid .o{background:var(--ok-soft);color:var(--ok)} .grid .x{background:var(--no-soft);color:var(--no)}
+  .wrong{border-top:1px solid var(--line);padding:12px 0;font-size:14px}
+  .wrong .q{color:var(--sub);font-size:12px;font-weight:700}
+  .wrong .a{font-size:16px}
+  .hidden{display:none!important}
+  @media (max-width:480px){.card{padding:18px}.bub .j{font-size:17px}h1{font-size:22px}.grid{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header class="top">
+    <div class="brand">日本語 <span>복습 퀴즈</span></div>
+    <label class="toggle"><input type="checkbox" id="pronT" checked> 한글 발음 보기</label>
+  </header>
+
+  <!-- START -->
+  <section id="start" class="card">
+    <h1>1단 동사 과거형<br>회화 복습 퀴즈</h1>
+    <p class="lead">오늘 배운 단어와 문형으로 만든 대화형 5지선다 20문제예요. 한 문제씩 풀면 바로 정답과 해설이 나와요.</p>
+
+    <div class="sec-title">오늘의 문형 · 반말(보통체) 과거</div>
+    <table class="pat">
+      <tr><th>뜻</th><th>만드는 법</th><th>예: <span class="jp">ねる</span>(자다)</th></tr>
+      <tr><td>~했다</td><td>る → <b class="jp">た</b></td><td class="jp">ねた <span class="muted">네타</span></td></tr>
+      <tr><td>~하지 않았다</td><td>る → <b class="jp">なかった</b></td><td class="jp">ねなかった <span class="muted">네나캇타</span></td></tr>
+      <tr><td>~했어?</td><td>る → <b class="jp">た？</b> (끝을 올려서)</td><td class="jp">ねた？ <span class="muted">네타?</span></td></tr>
+      <tr><td>~하지 않았어?</td><td>る → <b class="jp">なかった？</b></td><td class="jp">ねなかった？ <span class="muted">네나캇타?</span></td></tr>
+    </table>
+
+    <div class="sec-title">오늘의 단어</div>
+    <div class="chips">
+      <span class="chip"><b>ねる</b> 자다</span><span class="chip"><b>おぼえる</b> 외우다</span><span class="chip"><b>おりる</b> 내리다</span>
+      <span class="chip"><b>でかける</b> 외출하다</span><span class="chip"><b>かける</b> 걸다</span><span class="chip"><b>けさ</b> 오늘 아침</span>
+      <span class="chip"><b>ゆうべ</b> 어젯밤</span><span class="chip"><b>おそく</b> 늦게</span><span class="chip"><b>たんご</b> 단어</span>
+      <span class="chip"><b>でんわ</b> 전화</span><span class="chip"><b>ばんごう</b> 번호</span>
+    </div>
+    <p class="muted" style="margin-top:-8px">+ 지난 단어: みる·あける·しめる·かりる·きる·たべる·おしえる·おきる 등</p>
+
+    <button class="btn full" id="go" style="margin-top:14px">시작하기 →</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="prog"><span id="pt">1 / 20</span><div class="bar"><i id="pb"></i></div><span id="ps">0점</span></div>
+    <div class="card" id="qcard">
+      <div class="qno" id="qno">Q1</div>
+      <div class="ask" id="ask"></div>
+      <div class="dlg" id="dlg"></div>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb"></div>
+      <button class="btn full next hidden" id="next">다음 문제 →</button>
+    </div>
+    <div class="keys">키보드: 1~5 선택 · Enter 다음</div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="card hidden">
+    <div class="muted">결과</div>
+    <div class="score" id="score">0<small> / 20</small></div>
+    <div class="grade" id="grade"></div>
+    <div class="grid" id="grid"></div>
+    <div class="row">
+      <button class="btn" id="retryWrong">틀린 문제만 다시</button>
+      <button class="btn ghost" id="retryAll">처음부터 다시</button>
+    </div>
+    <div id="wrongList" style="margin-top:20px"></div>
+  </section>
+</div>
+
+<script>
+/* 루비 표기: {漢字|かな} → <ruby>, （　）→ 빈칸 */
+const Q = [
+ {ask:"빈칸에 알맞은 말은? (자다 → 잤다)",
+  lines:[["A","ゆうべ、{何時|なんじ}に{寝|ね}た？","유우베, 난지니 네타?","어젯밤 몇 시에 잤어?"],
+         ["B","{十二時|じゅうにじ}に（　）。","쥬우니지니 ( ? ).","12시에 잤어."]],
+  opts:[["ねた","네타"],["ねった","넷타"],["ねるた","네루타"],["ねまた","네마타"],["ねないた","네나이타"]],
+  exp:"1단 동사는 る를 떼고 た를 붙여요. ねる → <span class='jp'>ねた</span>"},
+
+ {ask:"빈칸에 알맞은 말은? (외우다 → 외우지 않았다)",
+  lines:[["A","きのう、{単語|たんご}を{覚|おぼ}えた？","키노우, 단고오 오보에타?","어제 단어 외웠어?"],
+         ["B","ううん、（　）。","우운, ( ? ).","아니, 안 외웠어."]],
+  opts:[["おぼえなかった","오보에나캇타"],["おぼえった","오보엣타"],["おぼえないた","오보에나이타"],["おぼえなくた","오보에나쿠타"],["おぼえらなかった","오보에라나캇타"]],
+  exp:"부정 과거는 る를 떼고 なかった. おぼえる → <span class='jp'>おぼえなかった</span>"},
+
+ {ask:"빈칸에 알맞은 말은? (걸다 → 걸었다)",
+  lines:[["A","{今朝|けさ}、{母|はは}に{電話|でんわ}をかけた？","케사, 하하니 덴와오 카케타?","오늘 아침에 어머니께 전화 걸었어?"],
+         ["B","うん、（　）。","웅, ( ? ).","응, 걸었어."]],
+  opts:[["かけた","카케타"],["かいた","카이타"],["かった","캇타"],["かけった","카켓타"],["かけるた","카케루타"]],
+  exp:"かける → <span class='jp'>かけた</span>. かいた는 ‘썼다(書く)’, かった는 ‘샀다(買う)’예요. 「電話をかける」 = 전화를 걸다"},
+
+ {ask:"다음 말을 일본어로 바르게 옮긴 것은?",
+  lines:[["Q","“어젯밤 늦게 잤어.”",null,null,true]],
+  opts:[["ゆうべ、おそく ねた。","유우베, 오소쿠 네타."],["けさ、おそく ねた。","케사, 오소쿠 네타."],["ゆうべ、おそく ねなかった。","유우베, 오소쿠 네나캇타."],["ゆうべ、おそく おきた。","유우베, 오소쿠 오키타."],["ゆうべ、おそく ねる。","유우베, 오소쿠 네루."]],
+  exp:"어젯밤 = ゆうべ, 늦게 = おそく, 잤다 = ねた. けさ는 ‘오늘 아침’, おきた는 ‘일어났다’예요."},
+
+ {ask:"빈칸에 알맞은 말은? (외출하다 → 외출하지 않았다)",
+  lines:[["A","きのう、{出|で}かけた？","키노우, 데카케타?","어제 외출했어?"],
+         ["B","ううん、どこにも（　）。","우운, 도코니모 ( ? ).","아니, 아무 데도 안 나갔어."]],
+  opts:[["でかけなかった","데카케나캇타"],["でかけた","데카케타"],["でかけないた","데카케나이타"],["でかかなかった","데카카나캇타"],["でかけなった","데카케낫타"]],
+  exp:"「どこにも ～なかった」 = 아무 데도 ~하지 않았다. でかける → <span class='jp'>でかけなかった</span>"},
+
+ {ask:"빈칸에 알맞은 말은? (내리다 → 내렸다)",
+  lines:[["A","どこで{電車|でんしゃ}を{降|お}りた？","도코데 덴샤오 오리타?","어디서 전철 내렸어?"],
+         ["B","{東京駅|とうきょうえき}で（　）。","토우쿄우에키데 ( ? ).","도쿄역에서 내렸어."]],
+  opts:[["おりた","오리타"],["おった","옷타"],["おりった","오릿타"],["おりるた","오리루타"],["おれた","오레타"]],
+  exp:"おりる → <span class='jp'>おりた</span>. 「電車を降りる」처럼 내리는 곳에 を를 써요."},
+
+ {ask:"‘외우지 않았어?’에 해당하는 말은?",
+  lines:[["A","わたしの{電話番号|でんわばんごう}、（　）？","와타시노 덴와반고우, ( ? )?","내 전화번호 안 외웠어?"],
+         ["B","ごめん、{忘|わす}れた。","고멘, 와스레타.","미안, 잊어버렸어."]],
+  opts:[["おぼえなかった","오보에나캇타"],["おぼえた","오보에타"],["おぼえない","오보에나이"],["おぼえて","오보에테"],["おぼえる","오보에루"]],
+  exp:"~하지 않았어? = なかった + 끝을 올려 말하기. <span class='jp'>おぼえなかった？</span> (보너스: わすれる도 1단 동사 → わすれた)"},
+
+ {ask:"다음 문장의 뜻으로 알맞은 것은?",
+  lines:[["Q","{今朝|けさ}、ご{飯|はん}を{食|た}べなかった。","케사, 고항오 타베나캇타."]],
+  kr:true,
+  opts:[["오늘 아침 밥을 먹지 않았다."],["어젯밤 밥을 먹지 않았다."],["오늘 아침 밥을 먹었다."],["오늘 아침 밥을 먹지 않았어?"],["오늘 아침 도시락을 먹지 않았다."]],
+  exp:"けさ = 오늘 아침, ごはん = 밥, たべなかった = 먹지 않았다 (끝에 ？가 없으니 질문이 아니에요)."},
+
+ {ask:"빈칸에 알맞은 말은? (보다 → 보지 않았다)",
+  lines:[["A","ゆうべ、テレビを{見|み}た？","유우베, 테레비오 미타?","어젯밤 TV 봤어?"],
+         ["B","ううん、（　）。{早|はや}く{寝|ね}たから。","우운, ( ? ). 하야쿠 네타카라.","아니, 안 봤어. 일찍 잤거든."]],
+  opts:[["みなかった","미나캇타"],["みた","미타"],["みないた","미나이타"],["みらなかった","미라나캇타"],["みった","밋타"]],
+  exp:"みる → <span class='jp'>みなかった</span>. 「早く寝たから」 = 일찍 잤으니까"},
+
+ {ask:"빈칸에 알맞은 말은? (일어나다 → 일어났다)",
+  lines:[["A","{今朝|けさ}、{何時|なんじ}に{起|お}きた？","케사, 난지니 오키타?","오늘 아침 몇 시에 일어났어?"],
+         ["B","{七時|しちじ}に（　）。","시치지니 ( ? ).","7시에 일어났어."]],
+  opts:[["おきた","오키타"],["おきった","오킷타"],["おいた","오이타"],["おきるた","오키루타"],["おこった","오콧타"]],
+  exp:"おきる → <span class='jp'>おきた</span>. おいた는 ‘두었다(置く)’, おこった는 ‘화냈다(怒る)’예요."},
+
+ {ask:"빈칸에 알맞은 말은? (가르치다·알리다 → 알려주지 않았다)",
+  lines:[["A","{友達|ともだち}に{電話番号|でんわばんごう}を{教|おし}えた？","토모다치니 덴와반고우오 오시에타?","친구한테 전화번호 알려줬어?"],
+         ["B","ううん、（　）。","우운, ( ? ).","아니, 안 알려줬어."]],
+  opts:[["おしえなかった","오시에나캇타"],["おしえた","오시에타"],["おしえないた","오시에나이타"],["おしえなった","오시에낫타"],["おしえらなかった","오시에라나캇타"]],
+  exp:"おしえる → <span class='jp'>おしえなかった</span>. ううん(아니) 뒤에는 부정형이 자연스러워요."},
+
+ {ask:"빈칸에 알맞은 말은? (닫다 → 닫았다)",
+  lines:[["A","{窓|まど}、{閉|し}めた？","마도, 시메타?","창문 닫았어?"],
+         ["B","うん、（　）。","웅, ( ? ).","응, 닫았어."]],
+  opts:[["しめた","시메타"],["しまった","시맛타"],["しめった","시멧타"],["しめるた","시메루타"],["しめて","시메테"]],
+  exp:"しめる → <span class='jp'>しめた</span>. しめて는 て형(~하고/~해 줘)이에요."},
+
+ {ask:"‘열었어?’에 해당하는 말은?",
+  lines:[["A","ドアを（　）？","도아오 ( ? )?","문 열었어?"],
+         ["B","うん、さっき。","웅, 삿키.","응, 아까."]],
+  opts:[["あけた","아케타"],["あいた","아이타"],["あけった","아켓타"],["あけるた","아케루타"],["あかった","아캇타"]],
+  exp:"あける(열다) → <span class='jp'>あけた？</span>. あいた는 ‘열렸다(開く)’라서 「ドアを」와 함께 쓰지 않아요."},
+
+ {ask:"빈칸에 알맞은 말은? (빌리다 → 빌리지 않았다)",
+  lines:[["A","{図書館|としょかん}で{本|ほん}を{借|か}りた？","토쇼칸데 홍오 카리타?","도서관에서 책 빌렸어?"],
+         ["B","ううん、（　）。","우운, ( ? ).","아니, 안 빌렸어."]],
+  opts:[["かりなかった","카리나캇타"],["かりた","카리타"],["かりらなかった","카리라나캇타"],["かりないた","카리나이타"],["かさなかった","카사나캇타"]],
+  exp:"かりる → <span class='jp'>かりなかった</span>. かさなかった는 ‘빌려주지 않았다(貸す)’예요."},
+
+ {ask:"다음 말을 일본어로 바르게 옮긴 것은?",
+  lines:[["Q","“오늘 아침에 단어 외웠어?”",null,null,true]],
+  opts:[["けさ、たんごを おぼえた？","케사, 단고오 오보에타?"],["ゆうべ、たんごを おぼえた？","유우베, 단고오 오보에타?"],["けさ、たんごを おぼえなかった？","케사, 단고오 오보에나캇타?"],["けさ、ばんごうを おぼえた？","케사, 반고우오 오보에타?"],["けさ、たんごを おぼえる？","케사, 단고오 오보에루?"]],
+  exp:"오늘 아침 = けさ, 단어 = たんご, 외웠어? = おぼえた？ (ばんごう는 ‘번호’)"},
+
+ {ask:"빈칸에 알맞은 말은? (입다 → 입었다)",
+  lines:[["A","きのう、{制服|せいふく}を{着|き}た？","키노우, 세이후쿠오 키타?","어제 교복 입었어?"],
+         ["B","ううん、スーツを（　）。","우운, 스우츠오 ( ? ).","아니, 양복을 입었어."]],
+  opts:[["きた","키타"],["きった","킷타"],["きいた","키이타"],["きるた","키루타"],["きて","키테"]],
+  exp:"きる(입다) → <span class='jp'>きた</span>. きいた는 ‘들었다(聞く)’예요."},
+
+ {ask:"빈칸에 알맞은 말은? (부정 질문에 대답하기)",
+  lines:[["A","ゆうべ、{友達|ともだち}に{電話|でんわ}をかけなかった？","유우베, 토모다치니 덴와오 카케나캇타?","어젯밤 친구한테 전화 안 걸었어?"],
+         ["B","ううん、（　）。{十一時|じゅういちじ}に。","우운, ( ? ). 쥬우이치지니.","아니, 걸었어. 11시에."]],
+  opts:[["かけた","카케타"],["かけなかった","카케나캇타"],["かけるた","카케루타"],["かいた","카이타"],["かけった","카켓타"]],
+  exp:"‘안 걸었어?’에 ううん(아니)이라고 하면 ‘아니, 걸었어’라는 뜻 → <span class='jp'>かけた</span>. 한국어와 같은 논리예요."},
+
+ {ask:"빈칸에 알맞은 말은? (부정 질문에 대답하기)",
+  lines:[["A","お{弁当|べんとう}、{食|た}べなかった？","오벤토우, 타베나캇타?","도시락 안 먹었어?"],
+         ["B","うん、{時間|じかん}がなくて（　）。","웅, 지캉가 나쿠테 ( ? ).","응, 시간이 없어서 못 먹었어."]],
+  opts:[["たべなかった","타베나캇타"],["たべた","타베타"],["たべないた","타베나이타"],["たべらなかった","타베라나캇타"],["たべった","타벳타"]],
+  exp:"‘안 먹었어?’에 うん(응)이라고 하면 ‘응, 안 먹었어’ → <span class='jp'>たべなかった</span>"},
+
+ {ask:"문법적으로 바른 문장은?",
+  lines:[["Q","1단 동사 과거형을 바르게 쓴 문장을 고르세요.",null,null,true]],
+  opts:[["けさ、バスを おりた。","케사, 바스오 오리타."],["ゆうべ、おそく ねった。","유우베, 오소쿠 넷타."],["きのう、たんごを おぼえないた。","키노우, 단고오 오보에나이타."],["でんわばんごうを おぼえるた。","덴와반고우오 오보에루타."],["けさ、でかけなった。","케사, 데카케낫타."]],
+  exp:"おりる → <span class='jp'>おりた</span> (오늘 아침 버스에서 내렸다). 나머지는 ねた / おぼえなかった / おぼえた / でかけなかった가 맞아요."},
+
+ {ask:"대화를 읽고, B가 어젯밤에 한 일로 알맞은 것은?",
+  lines:[["A","ゆうべ、{遅|おそ}く{寝|ね}た？","유우베, 오소쿠 네타?","어젯밤 늦게 잤어?"],
+         ["B","うん。{遅|おそ}くまで{単語|たんご}を{覚|おぼ}えた。","웅. 오소쿠마데 단고오 오보에타.","응. 늦게까지 단어를 외웠어."]],
+  kr:true,
+  opts:[["늦게까지 단어를 외웠다."],["늦게까지 전화를 걸었다."],["일찍 잤다."],["늦게까지 외출했다."],["단어를 외우지 않았다."]],
+  exp:"おそくまで = 늦게까지, たんごを おぼえた = 단어를 외웠다"}
+];
+
+const $ = id => document.getElementById(id);
+const ruby = s => s.replace(/\{([^|}]+)\|([^}]+)\}/g,'<ruby>$1<rt>$2</rt></ruby>')
+                   .replace(/（　）/g,'<span class="blank">?</span>');
+const NUM = ['①','②','③','④','⑤'];
+let order=[], idx=0, score=0, results={}, answered=false, cur=null;
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function start(list){
+  order = list; idx=0; score=0; answered=false;
+  list.forEach(i=>delete results[i]);
+  $('start').classList.add('hidden'); $('result').classList.add('hidden'); $('quiz').classList.remove('hidden');
+  render();
+}
+
+function render(){
+  const qi = order[idx], q = Q[qi]; answered=false;
+  $('pt').textContent = `${idx+1} / ${order.length}`;
+  $('pb').style.width = (idx/order.length*100)+'%';
+  $('ps').textContent = `${score}점`;
+  $('qno').textContent = `Q${qi+1}`;
+  $('ask').textContent = q.ask;
+  const d = $('dlg'); d.className='dlg'; d.innerHTML='';
+  q.lines.forEach(([sp,j,p,t,isKr])=>{
+    const el=document.createElement('div'); el.className='ln '+sp;
+    el.innerHTML = `<div class="av ${sp}">${sp==='Q'?'文':sp}</div><div class="bub">
+      <div class="j ${isKr?'':'jp'}" style="${isKr?'font-size:17px;line-height:1.6':''}">${ruby(j)}</div>
+      ${p?`<div class="p">${p}</div>`:''}
+      ${t?`<div class="t">뜻: ${t}</div>`:''}</div>`;
+    d.appendChild(el);
+  });
+  const o=$('opts'); o.innerHTML='';
+  cur = shuffle(q.opts.map((x,i)=>({x,correct:i===0})));
+  cur.forEach((c,i)=>{
+    const b=document.createElement('button'); b.className='opt';
+    b.innerHTML = `<span class="n">${i+1}</span><span>${q.kr
+        ? `<span class="op-k">${c.x[0]}</span>`
+        : `<span class="op-j jp">${c.x[0]}</span><span class="op-p">${c.x[1]}</span>`}</span>`;
+    b.onclick=()=>choose(i); o.appendChild(b);
+  });
+  $('fb').className='fb'; $('fb').innerHTML='';
+  $('next').classList.add('hidden');
+  $('next').textContent = idx===order.length-1 ? '결과 보기 →' : '다음 문제 →';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function choose(i){
+  if(answered) return; answered=true;
+  const qi=order[idx], q=Q[qi], btns=[...$('opts').children];
+  const ok = cur[i].correct, ci = cur.findIndex(c=>c.correct);
+  btns.forEach(b=>b.disabled=true);
+  btns[ci].classList.add('ok'); if(!ok) btns[i].classList.add('no');
+  if(ok) score++;
+  results[qi]=ok;
+  $('ps').textContent = `${score}점`;
+  const ans = cur[ci].x;
+  $('fb').className='fb '+(ok?'ok':'no');
+  $('fb').innerHTML = `<b>${ok?'정답이에요! 🎉':'아쉬워요. 정답은 '+NUM[ci]+' '+(q.kr?ans[0]:`<span class="jp">${ans[0]}</span> (${ans[1]})`)}</b>${q.exp}`;
+  $('dlg').classList.add('show-tr');
+  $('next').classList.remove('hidden');
+}
+
+function next(){
+  if(!answered) return;
+  if(idx<order.length-1){idx++;render()} else finish();
+}
+
+function finish(){
+  $('quiz').classList.add('hidden'); $('result').classList.remove('hidden');
+  const total=Q.length, got=Q.reduce((s,_,i)=>s+(results[i]?1:0),0);
+  $('score').innerHTML = `${got}<small> / ${total}</small>`;
+  $('grade').textContent = got===total?'완벽해요! 오늘 문형 마스터 🎌': got>=16?'아주 잘했어요! 틀린 문제만 한 번 더 볼까요?': got>=10?'좋아요. 틀린 문제를 다시 풀어 보세요.':'괜찮아요. 문형 표를 한 번 더 보고 다시 도전해요!';
+  $('grid').innerHTML = Q.map((_,i)=>`<div class="${results[i]?'o':'x'}">${i+1}</div>`).join('');
+  const wrong = Q.map((q,i)=>i).filter(i=>!results[i]);
+  $('retryWrong').classList.toggle('hidden', wrong.length===0);
+  $('retryWrong').onclick=()=>start(wrong);
+  $('wrongList').innerHTML = wrong.length? '<div class="sec-title">틀린 문제 정답</div>'+wrong.map(i=>{
+    const q=Q[i], a=q.opts[0];
+    return `<div class="wrong"><div class="q">Q${i+1} · ${q.ask}</div>
+      <div class="a ${q.kr?'':'jp'}">${a[0]} ${a[1]?`<span class="muted">${a[1]}</span>`:''}</div>
+      <div class="muted">${q.exp}</div></div>`}).join('') : '';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+$('go').onclick=()=>start(Q.map((_,i)=>i));
+$('next').onclick=next;
+$('retryAll').onclick=()=>{results={};start(Q.map((_,i)=>i))};
+$('pronT').onchange=e=>document.body.classList.toggle('no-pron',!e.target.checked);
+document.addEventListener('keydown',e=>{
+  if($('quiz').classList.contains('hidden')) return;
+  if(/^[1-5]$/.test(e.key)) choose(+e.key-1);
+  else if(e.key==='Enter') next();
+});
+</script>
+</body>
+</html>
